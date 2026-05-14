@@ -1,6 +1,6 @@
 # Little Fingers — Letters & Numbers
 
-Single-file children's educational app. Everything lives in `littlefingers.html` — no build step, no dependencies except Google Fonts.
+Single-file children's educational app. Everything lives in `index.html` — no build step, no dependencies except Google Fonts.
 
 ## What it does
 Teaches letters and numbers to toddlers via keyboard/tap. Each letter shows an animal with emoji, color, synthesized sound, and speech synthesis. Three modes: Latin ABC, Serbian Cyrillic АБВ, and Numbers 123.
