@@ -86,28 +86,48 @@ body{background:#0a0a1e;overflow:hidden;height:100vh;width:100vw;}
   font-size:13px;cursor:pointer;font-family:sans-serif;transition:all 0.2s;
 }
 #fs-btn:hover{background:rgba(255,255,255,0.18);color:#fff;}
+#content-btn{
+  position:absolute;top:10px;right:300px;z-index:100;
+  background:linear-gradient(135deg,#7c3aed,#4f46e5);
+  border:none;box-shadow:0 3px 12px rgba(99,60,220,0.5);
+  color:#fff;border-radius:22px;padding:10px 18px;
+  font-size:15px;cursor:pointer;font-family:'Fredoka One',cursive;
+  transition:all 0.2s;letter-spacing:0.5px;display:flex;align-items:center;gap:6px;
+  animation:content-pulse 2.5s ease-in-out infinite;
+}
+#content-btn:hover{
+  background:linear-gradient(135deg,#8b5cf6,#6366f1);
+  box-shadow:0 4px 18px rgba(99,60,220,0.75);
+  transform:scale(1.07);
+  animation:none;
+}
+@keyframes content-pulse{
+  0%,100%{box-shadow:0 3px 12px rgba(99,60,220,0.5);}
+  50%{box-shadow:0 3px 22px rgba(99,60,220,0.85),0 0 0 6px rgba(99,60,220,0.15);}
+}
 #mode-wrap{
   position:absolute;top:10px;right:130px;z-index:100;
-  display:inline-block;
+  display:inline-block;border-radius:22px;overflow:hidden;
+  box-shadow:0 3px 12px rgba(255,100,0,0.5);
+  transition:box-shadow 0.2s,transform 0.2s;
   animation:mode-pulse 2.5s ease-in-out infinite;
 }
-#mode-wrap:hover{ animation:none; }
+#mode-wrap:hover{
+  animation:none;
+  box-shadow:0 4px 18px rgba(255,100,0,0.75);
+  transform:scale(1.07);
+}
 #mode-wrap::after{
   content:'▾';position:absolute;right:14px;top:50%;
   transform:translateY(-50%);color:#fff;font-size:14px;pointer-events:none;
 }
 #mode-select{
   background:linear-gradient(135deg,#ff8c00,#ff5500);
-  border:none;box-shadow:0 3px 12px rgba(255,100,0,0.5);
-  color:#fff;border-radius:22px;padding:10px 38px 10px 22px;
+  border:0;outline:none;
+  color:#fff;padding:10px 38px 10px 22px;
   font-size:15px;cursor:pointer;font-family:'Fredoka One',cursive;
-  transition:all 0.2s;letter-spacing:1px;
-  appearance:none;-webkit-appearance:none;outline:none;
-}
-#mode-select:hover{
-  background:linear-gradient(135deg,#ffa020,#ff6600);
-  box-shadow:0 4px 18px rgba(255,100,0,0.75);
-  transform:scale(1.07);
+  letter-spacing:1px;
+  appearance:none;-webkit-appearance:none;-moz-appearance:none;
 }
 #mode-select option{ background:#222;color:#fff; }
 @keyframes mode-pulse{
@@ -155,6 +175,7 @@ body{background:#0a0a1e;overflow:hidden;height:100vh;width:100vw;}
 .pp-btn.danger{background:rgba(220,50,50,0.15);border-color:rgba(220,50,50,0.3);}
 .pp-divider{width:min(300px,80vw);height:1px;background:rgba(255,255,255,0.1);margin:2px 0;}
 .pp-label{font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;text-transform:uppercase;}
+#pp-about{font-size:13px;color:rgba(255,255,255,0.35);text-align:center;max-width:min(300px,80vw);line-height:1.5;margin:0 0 4px;font-style:italic;}
 </style>
 </head>
 <body>
@@ -171,6 +192,7 @@ body{background:#0a0a1e;overflow:hidden;height:100vh;width:100vw;}
     <span id="counter-badge">&#x1F44B;</span>
     <span id="counter-num">0</span>
   </div>
+  <button id="content-btn"><span id="content-icon">&#x1F43E;</span><span id="content-label">Životinje</span></button>
   <button id="fs-btn">&#x26F6; Fullscreen</button>
   <div id="mode-wrap">
     <select id="mode-select">
@@ -195,6 +217,7 @@ body{background:#0a0a1e;overflow:hidden;height:100vh;width:100vw;}
 
 <div id="parent-panel">
   <h2>&#x2699;&#xFE0F; Settings</h2>
+  <p id="pp-about">For curious toddlers who wonder what their remote-working parents are doing on the keyboard all day.</p>
   <span class="pp-label">Sound</span>
   <button class="pp-btn" onclick="toggleSound()">&#x1F50A; <span id="sound-label">Animal sounds: ON</span></button>
   <button class="pp-btn" onclick="toggleSpeech()">&#x1F5E3;&#xFE0F; <span id="speech-label">Voice: ON</span></button>
@@ -211,103 +234,103 @@ var LETTERS = [
     {n:'ALLIGATOR', e:'&#x1F40A;', c:'#4ade80', s:'low'},
     {n:'ALPACA',    e:'&#x1F999;', c:'#fde68a', s:'grunt'},
     {n:'ANT',       e:'&#x1F41C;', c:'#f87171', s:'flutter'},
-  ]},
+  ], objects:[{n:'AIRPLANE',   e:'&#x2708;&#xFE0F;',   c:'#67e8f9', s:'screech'}]},
   {d:'B', animals:[
     {n:'BEAR',      e:'&#x1F43B;', c:'#d97706', s:'grunt'},
     {n:'BEE',       e:'&#x1F41D;', c:'#fbbf24', s:'flutter'},
     {n:'BUTTERFLY', e:'&#x1F98B;', c:'#f472b6', s:'flutter'},
     {n:'BUFFALO',   e:'&#x1F403;', c:'#94a3b8', s:'grunt'},
     {n:'BAT',       e:'&#x1F987;', c:'#a78bfa', s:'squeak'},
-  ]},
+  ], objects:[{n:'BALLOON',    e:'&#x1F388;', c:'#f87171', s:'flutter'}]},
   {d:'C', animals:[
     {n:'CAT',       e:'&#x1F431;', c:'#fb923c', s:'meow'},
     {n:'COW',       e:'&#x1F404;', c:'#e2e8f0', s:'moo'},
     {n:'CRAB',      e:'&#x1F980;', c:'#f87171', s:'bubble'},
     {n:'CROCODILE', e:'&#x1F40A;', c:'#4ade80', s:'low'},
     {n:'CHEETAH',   e:'&#x1F406;', c:'#fbbf24', s:'roar'},
-  ]},
+  ], objects:[{n:'CAR',        e:'&#x1F697;', c:'#f97316', s:'screech'}]},
   {d:'D', animals:[
     {n:'DOG',       e:'&#x1F436;', c:'#a78bfa', s:'bark'},
     {n:'DOLPHIN',   e:'&#x1F42C;', c:'#67e8f9', s:'bubble'},
     {n:'DUCK',      e:'&#x1F986;', c:'#fde68a', s:'quack'},
     {n:'DEER',      e:'&#x1F98C;', c:'#d97706', s:'low'},
     {n:'DONKEY',    e:'&#x1F434;', c:'#94a3b8', s:'grunt'},
-  ]},
+  ], objects:[{n:'DRUM',       e:'&#x1F941;', c:'#f472b6', s:'grunt'}]},
   {d:'E', animals:[
     {n:'ELEPHANT',  e:'&#x1F418;', c:'#67e8f9', s:'elephant'},
     {n:'EAGLE',     e:'&#x1F985;', c:'#94a3b8', s:'screech'},
     {n:'ELK',       e:'&#x1F98C;', c:'#d97706', s:'low'},
     {n:'EMU',       e:'&#x1F9A4;', c:'#a3a3a3', s:'grunt'},
-  ]},
+  ], objects:[{n:'EGG',        e:'&#x1F95A;', c:'#fde68a', s:'squeak'}]},
   {d:'F', animals:[
     {n:'FOX',       e:'&#x1F98A;', c:'#f97316', s:'bark'},
     {n:'FROG',      e:'&#x1F438;', c:'#4ade80', s:'croak'},
     {n:'FLAMINGO',  e:'&#x1F9A9;', c:'#f472b6', s:'squawk'},
     {n:'FISH',      e:'&#x1F41F;', c:'#67e8f9', s:'bubble'},
-  ]},
+  ], objects:[{n:'FIRE TRUCK', e:'&#x1F692;', c:'#f87171', s:'screech'}]},
   {d:'G', animals:[
     {n:'GIRAFFE',   e:'&#x1F992;', c:'#fbbf24', s:'low'},
     {n:'GORILLA',   e:'&#x1F98D;', c:'#94a3b8', s:'grunt'},
     {n:'GOAT',      e:'&#x1F410;', c:'#e2e8f0', s:'grunt'},
-  ]},
+  ], objects:[{n:'GUITAR',     e:'&#x1F3B8;', c:'#fbbf24', s:'flutter'}]},
   {d:'H', animals:[
     {n:'HIPPO',     e:'&#x1F99B;', c:'#94a3b8', s:'grunt'},
     {n:'HORSE',     e:'&#x1F434;', c:'#d97706', s:'grunt'},
     {n:'HEDGEHOG',  e:'&#x1F994;', c:'#fb923c', s:'squeak'},
     {n:'HEN',       e:'&#x1F413;', c:'#fbbf24', s:'squawk'},
-  ]},
+  ], objects:[{n:'HELICOPTER', e:'&#x1F681;', c:'#94a3b8', s:'screech'}]},
   {d:'I', animals:[
     {n:'IGUANA',    e:'&#x1F98E;', c:'#86efac', s:'hiss'},
     {n:'IMPALA',    e:'&#x1F98C;', c:'#fbbf24', s:'low'},
     {n:'IBIS',      e:'&#x1F9A2;', c:'#f0f9ff', s:'squawk'},
-  ]},
+  ], objects:[{n:'ICE CREAM',  e:'&#x1F366;', c:'#a78bfa', s:'bubble'}]},
   {d:'J', animals:[
     {n:'JAGUAR',    e:'&#x1F406;', c:'#fcd34d', s:'roar'},
     {n:'JELLYFISH', e:'&#x1F421;', c:'#c084fc', s:'bubble'},
-  ]},
+  ], objects:[{n:'JUICE',      e:'&#x1F9C3;', c:'#4ade80', s:'bubble'}]},
   {d:'K', animals:[
     {n:'KANGAROO',  e:'&#x1F998;', c:'#f97316', s:'low'},
     {n:'KOALA',     e:'&#x1F428;', c:'#94a3b8', s:'grunt'},
-  ]},
+  ], objects:[{n:'KITE',       e:'&#x1FA81;', c:'#c084fc', s:'flutter'}]},
   {d:'L', animals:[
     {n:'LION',      e:'&#x1F981;', c:'#fbbf24', s:'roar'},
     {n:'LEOPARD',   e:'&#x1F406;', c:'#fcd34d', s:'roar'},
     {n:'LLAMA',     e:'&#x1F999;', c:'#fde68a', s:'grunt'},
     {n:'LOBSTER',   e:'&#x1F99E;', c:'#f87171', s:'bubble'},
-  ]},
+  ], objects:[{n:'LOLLIPOP',   e:'&#x1F36D;', c:'#f472b6', s:'bubble'}]},
   {d:'M', animals:[
     {n:'MONKEY',    e:'&#x1F412;', c:'#d97706', s:'monkey'},
     {n:'MOUSE',     e:'&#x1F42D;', c:'#94a3b8', s:'squeak'},
     {n:'MOOSE',     e:'&#x1F98C;', c:'#86efac', s:'low'},
-  ]},
+  ], objects:[{n:'MOON',       e:'&#x1F319;', c:'#94a3b8', s:'squeak'}]},
   {d:'N', animals:[
     {n:'NARWHAL',   e:'&#x1F9AD;', c:'#93c5fd', s:'bubble'},
     {n:'NEWT',      e:'&#x1F98E;', c:'#4ade80', s:'hiss'},
-  ]},
+  ], objects:[{n:'NOODLES',    e:'&#x1F35C;', c:'#fbbf24', s:'bubble'}]},
   {d:'O', animals:[
     {n:'OCTOPUS',   e:'&#x1F419;', c:'#c084fc', s:'bubble'},
     {n:'OWL',       e:'&#x1F989;', c:'#d97706', s:'squawk'},
     {n:'OTTER',     e:'&#x1F9A6;', c:'#fb923c', s:'squeak'},
     {n:'OX',        e:'&#x1F402;', c:'#f87171', s:'grunt'},
-  ]},
+  ], objects:[{n:'ORANGE',     e:'&#x1F34A;', c:'#fb923c', s:'bubble'}]},
   {d:'P', animals:[
     {n:'PENGUIN',   e:'&#x1F427;', c:'#93c5fd', s:'squawk'},
     {n:'PANDA',     e:'&#x1F43C;', c:'#e2e8f0', s:'grunt'},
     {n:'PARROT',    e:'&#x1F99C;', c:'#4ade80', s:'squawk'},
     {n:'PIG',       e:'&#x1F437;', c:'#fca5a5', s:'grunt'},
     {n:'PEACOCK',   e:'&#x1F99A;', c:'#67e8f9', s:'screech'},
-  ]},
+  ], objects:[{n:'PIZZA',      e:'&#x1F355;', c:'#f97316', s:'bubble'}]},
   {d:'Q', animals:[
     {n:'QUAIL',     e:'&#x1F426;', c:'#fde68a', s:'squawk'},
     {n:'QUOKKA',    e:'&#x1F428;', c:'#d97706', s:'squeak'},
     {n:'QUETZAL',   e:'&#x1F99C;', c:'#4ade80', s:'squawk'},
-  ]},
+  ], objects:[{n:'QUEEN',      e:'&#x1F478;', c:'#e879f9', s:'flutter'}]},
   {d:'R', animals:[
     {n:'RABBIT',    e:'&#x1F430;', c:'#fca5a5', s:'squeak'},
     {n:'RACCOON',   e:'&#x1F99D;', c:'#94a3b8', s:'squeak'},
     {n:'RHINO',     e:'&#x1F98F;', c:'#a1a1aa', s:'grunt'},
     {n:'ROOSTER',   e:'&#x1F413;', c:'#f87171', s:'squawk'},
-  ]},
+  ], objects:[{n:'ROCKET',     e:'&#x1F680;', c:'#67e8f9', s:'screech'}]},
   {d:'S', animals:[
     {n:'SNAKE',     e:'&#x1F40D;', c:'#4ade80', s:'hiss'},
     {n:'SHARK',     e:'&#x1F988;', c:'#67e8f9', s:'bubble'},
@@ -315,43 +338,43 @@ var LETTERS = [
     {n:'SNAIL',     e:'&#x1F40C;', c:'#c084fc', s:'bubble'},
     {n:'SQUIRREL',  e:'&#x1F43F;&#xFE0F;', c:'#d97706', s:'squeak'},
     {n:'SWAN',      e:'&#x1F9A2;', c:'#f0f9ff', s:'squawk'},
-  ]},
+  ], objects:[{n:'STAR',       e:'&#x2B50;&#xFE0F;',   c:'#fbbf24', s:'flutter'}]},
   {d:'T', animals:[
     {n:'TIGER',     e:'&#x1F42F;', c:'#fb923c', s:'roar'},
     {n:'TURTLE',    e:'&#x1F422;', c:'#4ade80', s:'bubble'},
     {n:'TARANTULA', e:'&#x1F577;&#xFE0F;', c:'#f87171', s:'hiss'},
-  ]},
+  ], objects:[{n:'TRAIN',      e:'&#x1F682;', c:'#f87171', s:'screech'}]},
   {d:'U', animals:[
     {n:'UNICORN',   e:'&#x1F984;', c:'#e879f9', s:'flutter'},
     {n:'URIAL',     e:'&#x1F40F;', c:'#d97706', s:'grunt'},
     {n:'UMBRELLABIRD', e:'&#x1F426;', c:'#1e3a5f', s:'squawk'},
-  ]},
+  ], objects:[{n:'UMBRELLA',   e:'&#x2602;&#xFE0F;',   c:'#93c5fd', s:'squeak'}]},
   {d:'V', animals:[
     {n:'VULTURE',   e:'&#x1F985;', c:'#94a3b8', s:'screech'},
     {n:'VIPER',     e:'&#x1F40D;', c:'#4ade80', s:'hiss'},
     {n:'VICUNA',    e:'&#x1F999;', c:'#fde68a', s:'grunt'},
-  ]},
+  ], objects:[{n:'VIOLIN',     e:'&#x1F3BB;', c:'#d97706', s:'flutter'}]},
   {d:'W', animals:[
     {n:'WOLF',      e:'&#x1F43A;', c:'#a1a1aa', s:'howl'},
     {n:'WHALE',     e:'&#x1F40B;', c:'#67e8f9', s:'bubble'},
     {n:'WALRUS',    e:'&#x1F9AD;', c:'#94a3b8', s:'grunt'},
-  ]},
+  ], objects:[{n:'WATERMELON', e:'&#x1F349;', c:'#4ade80', s:'bubble'}]},
   {d:'X', animals:[
     {n:'X-RAY FISH',e:'&#x1F41F;', c:'#67e8f9', s:'bubble'},
     {n:'XERUS',     e:'&#x1F43F;&#xFE0F;', c:'#d97706', s:'squeak'},
-  ]},
+  ], objects:[{n:'XYLOPHONE',  e:'&#x1F3B5;', c:'#c084fc', s:'flutter'}]},
   {d:'Y', animals:[
     {n:'YAK',       e:'&#x1F403;', c:'#d4a574', s:'grunt'},
     {n:'YABBY',     e:'&#x1F99E;', c:'#f87171', s:'bubble'},
-  ]},
+  ], objects:[{n:'YARN',       e:'&#x1F9F6;', c:'#f472b6', s:'squeak'}]},
   {d:'Z', animals:[
     {n:'ZEBRA',     e:'&#x1F993;', c:'#e2e8f0', s:'bark'},
-  ]},
+  ], objects:[{n:'ZIPPER',     e:'&#x26A1;&#xFE0F;',   c:'#fbbf24', s:'screech'}]},
 ];
 
 var NUMBERS = [
   {d:'0', n:'ZERO',  nc:'НУЛА',   e:'&#x1F311;', c:'#94a3b8', s:'bubble',  items:[]},
-  {d:'1', n:'ONE',   nc:'ЈЕДАН',  e:'&#x2B50;',  c:'#fbbf24', s:'flutter', items:['&#x2B50;']},
+  {d:'1', n:'ONE',   nc:'ЈЕДАН',  e:'&#x2B50;&#xFE0F;',  c:'#fbbf24', s:'flutter', items:['&#x2B50;']},
   {d:'2', n:'TWO',   nc:'ДВА',    e:'&#x1F34E;', c:'#f87171', s:'bubble',  items:['&#x1F34E;','&#x1F34E;']},
   {d:'3', n:'THREE', nc:'ТРИ',    e:'&#x1F308;', c:'#a78bfa', s:'flutter', items:['&#x1F308;','&#x1F308;','&#x1F308;']},
   {d:'4', n:'FOUR',  nc:'ЧЕТИРИ', e:'&#x1F388;', c:'#f472b6', s:'flutter', items:['&#x1F388;','&#x1F388;','&#x1F388;','&#x1F388;']},
@@ -363,47 +386,47 @@ var NUMBERS = [
 ];
 
 var CYRILLIC_LETTERS = [
-  {d:'А', animals:[{n:'АНТИЛОПА',       e:'&#x1F98C;', c:'#4ade80', s:'low'}]},
-  {d:'Б', animals:[{n:'БИК',            e:'&#x1F402;', c:'#f87171', s:'grunt'}]},
-  {d:'В', animals:[{n:'ВУК',            e:'&#x1F43A;', c:'#a1a1aa', s:'howl'}]},
-  {d:'Г', animals:[{n:'ГОРИЛА',         e:'&#x1F98D;', c:'#94a3b8', s:'grunt'}]},
-  {d:'Д', animals:[{n:'ДЕЛФИН',         e:'&#x1F42C;', c:'#67e8f9', s:'bubble'}]},
-  {d:'Ђ', animals:[{n:'ЂАВОЉА РИБА',   e:'&#x1F988;', c:'#c084fc', s:'bubble'}]},
-  {d:'Е', animals:[{n:'ЕМУ',            e:'&#x1F9A4;', c:'#a3a3a3', s:'grunt'}]},
-  {d:'Ж', animals:[{n:'ЖАБА',           e:'&#x1F438;', c:'#4ade80', s:'croak'}]},
-  {d:'З', animals:[{n:'ЗЕБРА',          e:'&#x1F993;', c:'#e2e8f0', s:'bark'}]},
-  {d:'И', animals:[{n:'ИГУАНА',         e:'&#x1F98E;', c:'#86efac', s:'hiss'}]},
-  {d:'Ј', animals:[{n:'ЈЕЖ',           e:'&#x1F994;', c:'#f97316', s:'squeak'}]},
+  {d:'А', animals:[{n:'АНТИЛОПА',       e:'&#x1F98C;', c:'#4ade80', s:'low'}],      objects:[{n:'АВИОН',       e:'&#x2708;&#xFE0F;',   c:'#67e8f9', s:'screech'}]},
+  {d:'Б', animals:[{n:'БИК',            e:'&#x1F402;', c:'#f87171', s:'grunt'}],     objects:[{n:'БАЛОН',       e:'&#x1F388;', c:'#f87171', s:'flutter'}]},
+  {d:'В', animals:[{n:'ВУК',            e:'&#x1F43A;', c:'#a1a1aa', s:'howl'}],      objects:[{n:'ВОЗ',         e:'&#x1F682;', c:'#f87171', s:'screech'}]},
+  {d:'Г', animals:[{n:'ГОРИЛА',         e:'&#x1F98D;', c:'#94a3b8', s:'grunt'}],     objects:[{n:'ГИТАРА',      e:'&#x1F3B8;', c:'#fbbf24', s:'flutter'}]},
+  {d:'Д', animals:[{n:'ДЕЛФИН',         e:'&#x1F42C;', c:'#67e8f9', s:'bubble'}],    objects:[{n:'ДИНОСАУРУС',  e:'&#x1F995;', c:'#4ade80', s:'roar'}]},
+  {d:'Ђ', animals:[{n:'ЂАВОЉА РИБА',   e:'&#x1F988;', c:'#c084fc', s:'bubble'}],    objects:[{n:'ЂЕРДАН',      e:'&#x1F4FF;', c:'#c084fc', s:'squeak'}]},
+  {d:'Е', animals:[{n:'ЕМУ',            e:'&#x1F9A4;', c:'#a3a3a3', s:'grunt'}],     objects:[{n:'ЕКЛЕР',       e:'&#x1F369;', c:'#fb923c', s:'bubble'}]},
+  {d:'Ж', animals:[{n:'ЖАБА',           e:'&#x1F438;', c:'#4ade80', s:'croak'}],     objects:[{n:'ЖВАКЕ',       e:'&#x1F36C;', c:'#f472b6', s:'bubble'}]},
+  {d:'З', animals:[{n:'ЗЕБРА',          e:'&#x1F993;', c:'#e2e8f0', s:'bark'}],      objects:[{n:'ЗВЕЗДА',      e:'&#x2B50;&#xFE0F;',   c:'#fbbf24', s:'flutter'}]},
+  {d:'И', animals:[{n:'ИГУАНА',         e:'&#x1F98E;', c:'#86efac', s:'hiss'}],      objects:[{n:'ИГРАЧКА',     e:'&#x1F9F8;', c:'#d97706', s:'squeak'}]},
+  {d:'Ј', animals:[{n:'ЈЕЖ',           e:'&#x1F994;', c:'#f97316', s:'squeak'}],    objects:[{n:'ЈАГОДА',      e:'&#x1F353;', c:'#f87171', s:'bubble'}]},
   {d:'К', animals:[{n:'КОЊ',           e:'&#x1F434;', c:'#fbbf24', s:'grunt'},
-                   {n:'КЕНГУР',        e:'&#x1F998;', c:'#f97316', s:'low'}]},
+                   {n:'КЕНГУР',        e:'&#x1F998;', c:'#f97316', s:'low'}],        objects:[{n:'КОЛА',        e:'&#x1F697;', c:'#f97316', s:'screech'}]},
   {d:'Л', animals:[{n:'ЛАВ',           e:'&#x1F981;', c:'#fbbf24', s:'roar'},
-                   {n:'ЛИСИЦА',        e:'&#x1F98A;', c:'#f97316', s:'bark'}]},
-  {d:'Љ', animals:[{n:'ЉИЉАК',         e:'&#x1F987;', c:'#a78bfa', s:'squeak'}]},
+                   {n:'ЛИСИЦА',        e:'&#x1F98A;', c:'#f97316', s:'bark'}],       objects:[{n:'ЛОПТА',       e:'&#x26BD;&#xFE0F;',   c:'#4ade80', s:'grunt'}]},
+  {d:'Љ', animals:[{n:'ЉИЉАК',         e:'&#x1F987;', c:'#a78bfa', s:'squeak'}],    objects:[{n:'ЉУЉАШКА',     e:'&#x1F6DD;', c:'#93c5fd', s:'flutter'}]},
   {d:'М', animals:[{n:'МАЈМУН',        e:'&#x1F412;', c:'#d97706', s:'monkey'},
-                   {n:'МИШ',           e:'&#x1F42D;', c:'#94a3b8', s:'squeak'}]},
-  {d:'Н', animals:[{n:'НОЈ',           e:'&#x1F9A4;', c:'#f472b6', s:'squawk'}]},
-  {d:'Њ', animals:[{n:'ЊУШКАЛО',       e:'&#x1F43D;', c:'#fca5a5', s:'grunt'}]},
+                   {n:'МИШ',           e:'&#x1F42D;', c:'#94a3b8', s:'squeak'}],     objects:[{n:'МЕСЕЦ',       e:'&#x1F319;', c:'#94a3b8', s:'squeak'}]},
+  {d:'Н', animals:[{n:'НОЈ',           e:'&#x1F9A4;', c:'#f472b6', s:'squawk'}],    objects:[{n:'НАОЧАРЕ',     e:'&#x1F453;', c:'#67e8f9', s:'squeak'}]},
+  {d:'Њ', animals:[{n:'ЊУШКАЛО',       e:'&#x1F43D;', c:'#fca5a5', s:'grunt'}],     objects:[{n:'НJУШКАЛО',    e:'&#x1F50D;', c:'#fbbf24', s:'squeak'}]},
   {d:'О', animals:[{n:'ОРАО',          e:'&#x1F985;', c:'#94a3b8', s:'screech'},
-                   {n:'ОКТОПОД',       e:'&#x1F419;', c:'#c084fc', s:'bubble'}]},
+                   {n:'ОКТОПОД',       e:'&#x1F419;', c:'#c084fc', s:'bubble'}],     objects:[{n:'ОЛОВКА',      e:'&#x270F;&#xFE0F;',   c:'#fbbf24', s:'squeak'}]},
   {d:'П', animals:[{n:'ПАТКА',         e:'&#x1F986;', c:'#fde68a', s:'quack'},
-                   {n:'ПИНГВИН',       e:'&#x1F427;', c:'#93c5fd', s:'squawk'}]},
+                   {n:'ПИНГВИН',       e:'&#x1F427;', c:'#93c5fd', s:'squawk'}],     objects:[{n:'ПИЦА',        e:'&#x1F355;', c:'#f97316', s:'bubble'}]},
   {d:'Р', animals:[{n:'РИС',           e:'&#x1F406;', c:'#fcd34d', s:'roar'},
-                   {n:'РОДА',          e:'&#x1F9A2;', c:'#f0f9ff', s:'squawk'}]},
+                   {n:'РОДА',          e:'&#x1F9A2;', c:'#f0f9ff', s:'squawk'}],     objects:[{n:'РАКЕТА',      e:'&#x1F680;', c:'#67e8f9', s:'screech'}]},
   {d:'С', animals:[{n:'СЛОН',          e:'&#x1F418;', c:'#67e8f9', s:'elephant'},
-                   {n:'СОВА',          e:'&#x1F989;', c:'#d97706', s:'squawk'}]},
+                   {n:'СОВА',          e:'&#x1F989;', c:'#d97706', s:'squawk'}],     objects:[{n:'СЛАДОЛЕД',    e:'&#x1F366;', c:'#a78bfa', s:'bubble'}]},
   {d:'Т', animals:[{n:'ТИГАР',         e:'&#x1F42F;', c:'#fb923c', s:'roar'},
-                   {n:'ТУКАН',         e:'&#x1F99C;', c:'#4ade80', s:'squawk'}]},
-  {d:'Ћ', animals:[{n:'ЋУРКА',         e:'&#x1F983;', c:'#d97706', s:'squawk'}]},
-  {d:'У', animals:[{n:'УГОР',          e:'&#x1F40D;', c:'#4ade80', s:'hiss'}]},
+                   {n:'ТУКАН',         e:'&#x1F99C;', c:'#4ade80', s:'squawk'}],     objects:[{n:'ТОРТА',       e:'&#x1F382;', c:'#f472b6', s:'flutter'}]},
+  {d:'Ћ', animals:[{n:'ЋУРКА',         e:'&#x1F983;', c:'#d97706', s:'squawk'}],    objects:[{n:'ЋИПС',        e:'&#x1F35F;', c:'#fbbf24', s:'bubble'}]},
+  {d:'У', animals:[{n:'УГОР',          e:'&#x1F40D;', c:'#4ade80', s:'hiss'}],      objects:[{n:'УДИЦА',       e:'&#x1F3A3;', c:'#67e8f9', s:'bubble'}]},
   {d:'Ф', animals:[{n:'ФАЗАН',         e:'&#x1F985;', c:'#fbbf24', s:'squawk'},
-                   {n:'ФОКА',          e:'&#x1F9AD;', c:'#93c5fd', s:'bubble'}]},
+                   {n:'ФОКА',          e:'&#x1F9AD;', c:'#93c5fd', s:'bubble'}],     objects:[{n:'ФЕНЕР',       e:'&#x1F526;', c:'#fbbf24', s:'squeak'}]},
   {d:'Х', animals:[{n:'ХРЧАК',         e:'&#x1F439;', c:'#fb923c', s:'squeak'},
-                   {n:'ХИЈЕНА',        e:'&#x1F43A;', c:'#fde68a', s:'bark'}]},
-  {d:'Ц', animals:[{n:'ЦВРЧАК',        e:'&#x1F997;', c:'#86efac', s:'flutter'}]},
-  {d:'Ч', animals:[{n:'ЧАПЉА',         e:'&#x1F9A2;', c:'#67e8f9', s:'squawk'}]},
-  {d:'Џ', animals:[{n:'ЏИНОВСКА ПАНДА',e:'&#x1F43C;', c:'#e2e8f0', s:'grunt'}]},
+                   {n:'ХИЈЕНА',        e:'&#x1F43A;', c:'#fde68a', s:'bark'}],       objects:[{n:'ХАМБУРГЕР',   e:'&#x1F354;', c:'#fb923c', s:'bubble'}]},
+  {d:'Ц', animals:[{n:'ЦВРЧАК',        e:'&#x1F997;', c:'#86efac', s:'flutter'}],   objects:[{n:'ЦВЕТ',        e:'&#x1F338;', c:'#f472b6', s:'flutter'}]},
+  {d:'Ч', animals:[{n:'ЧАПЉА',         e:'&#x1F9A2;', c:'#67e8f9', s:'squawk'}],   objects:[{n:'ЧОКОЛАДА',    e:'&#x1F36B;', c:'#d97706', s:'bubble'}]},
+  {d:'Џ', animals:[{n:'ЏИНОВСКА ПАНДА',e:'&#x1F43C;', c:'#e2e8f0', s:'grunt'}],    objects:[{n:'ЏЕМПЕР',      e:'&#x1F9E5;', c:'#a78bfa', s:'squeak'}]},
   {d:'Ш', animals:[{n:'ШАРАН',         e:'&#x1F41F;', c:'#f97316', s:'bubble'},
-                   {n:'ШАКАЛ',         e:'&#x1F43A;', c:'#fbbf24', s:'bark'}]},
+                   {n:'ШАКАЛ',         e:'&#x1F43A;', c:'#fbbf24', s:'bark'}],       objects:[{n:'ШЕШИР',       e:'&#x1F3A9;', c:'#fbbf24', s:'squeak'}]},
 ];
 
 var EN_MAP = {
@@ -429,6 +452,7 @@ var currentType = 'abc';
 var soundOn = true;
 var speechOn = true;
 var animalIdxMap = {};
+var contentMode = 'animals';
 
 var actionCount = 0;
 var achievementTimer = null;
@@ -477,6 +501,7 @@ function saveState() {
     localStorage.setItem('lf_count', actionCount);
     localStorage.setItem('lf_animals', JSON.stringify(animalIdxMap));
     localStorage.setItem('lf_mode', document.getElementById('mode-select').value);
+    localStorage.setItem('lf_content', contentMode);
   } catch(e) {}
 }
 
@@ -488,6 +513,8 @@ function loadState() {
     if (a) animalIdxMap = JSON.parse(a);
     var m = localStorage.getItem('lf_mode');
     if (m) document.getElementById('mode-select').value = m;
+    var cm = localStorage.getItem('lf_content');
+    if (cm) contentMode = cm;
   } catch(e) {}
 }
 
@@ -532,49 +559,50 @@ var AC = new (window.AudioContext || window.webkitAudioContext)();
 
 function playSound(type) {
   if (!soundOn) return;
-  AC.resume();
-  var ctx = AC, t = ctx.currentTime;
-  function osc(type, freq, endFreq, dur, gainVal) {
-    var o = ctx.createOscillator(), g = ctx.createGain();
-    o.connect(g); g.connect(ctx.destination);
-    o.type = type;
-    o.frequency.setValueAtTime(freq, t);
-    if (endFreq) o.frequency.exponentialRampToValueAtTime(endFreq, t + dur);
-    g.gain.setValueAtTime(gainVal || 0.25, t);
-    g.gain.exponentialRampToValueAtTime(0.001, t + dur);
-    o.start(t); o.stop(t + dur);
-  }
-  if (type === 'meow') { osc('sine',600,900,0.1,0.3); osc('sine',900,700,0.3,0.2); }
-  else if (type === 'bark') { osc('sawtooth',180,80,0.15,0.4); setTimeout(function(){osc('sawtooth',160,70,0.15,0.35);},250); }
-  else if (type === 'roar') { osc('sawtooth',80,40,0.6,0.15); osc('sawtooth',100,50,0.6,0.12); osc('sawtooth',120,60,0.6,0.10); }
-  else if (type === 'quack') { osc('square',400,300,0.08,0.22); osc('square',300,380,0.16,0.15); }
-  else if (type === 'hiss') {
-    var buf = ctx.createBuffer(1, ctx.sampleRate * 0.4, ctx.sampleRate);
-    var d = buf.getChannelData(0);
-    for (var i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-    var src = ctx.createBufferSource(), flt = ctx.createBiquadFilter(), g = ctx.createGain();
-    flt.type = 'bandpass'; flt.frequency.value = 4000; flt.Q.value = 0.5;
-    src.buffer = buf; src.connect(flt); flt.connect(g); g.connect(ctx.destination);
-    g.gain.setValueAtTime(0.2, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
-    src.start(t);
-  }
-  else if (type === 'croak') { osc('square',120,200,0.05,0.3); osc('square',200,120,0.1,0.25); }
-  else if (type === 'grunt') { osc('sawtooth',100,55,0.35,0.35); }
-  else if (type === 'moo') { osc('sawtooth',180,140,0.3,0.3); osc('sawtooth',140,160,0.6,0.25); }
-  else if (type === 'squawk') { osc('square',800,400,0.1,0.2); osc('square',400,700,0.2,0.15); }
-  else if (type === 'squeak') { osc('sine',1200,800,0.15,0.2); }
-  else if (type === 'elephant') { osc('sawtooth',200,600,0.2,0.3); osc('sawtooth',600,300,0.5,0.25); }
-  else if (type === 'howl') { osc('sine',300,620,0.3,0.25); osc('sine',620,500,0.75,0.3); }
-  else if (type === 'screech') { osc('sawtooth',1000,600,0.15,0.15); }
-  else if (type === 'monkey') {
-    var freqs = [400,620,500,720,400];
-    for (var i = 0; i < freqs.length; i++) {
-      (function(f,delay){ setTimeout(function(){ osc('sine',f,null,0.08,0.2); }, delay); })(freqs[i], i*90);
+  AC.resume().then(function() {
+    var ctx = AC, t = ctx.currentTime;
+    function osc(type, freq, endFreq, dur, gainVal) {
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = type;
+      o.frequency.setValueAtTime(freq, t);
+      if (endFreq) o.frequency.exponentialRampToValueAtTime(endFreq, t + dur);
+      g.gain.setValueAtTime(gainVal || 0.25, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+      o.start(t); o.stop(t + dur);
     }
-  }
-  else if (type === 'bubble') { osc('sine',200,400,0.08,0.15); osc('sine',280,480,0.08,0.12); osc('sine',360,560,0.08,0.10); }
-  else if (type === 'flutter') { for (var i=0;i<7;i++){ (function(d){ setTimeout(function(){ osc('sine',800+Math.random()*500,null,0.05,0.1); },d); })(i*40); } }
-  else if (type === 'low') { osc('sawtooth',150,75,0.42,0.25); }
+    if (type === 'meow') { osc('sine',600,900,0.1,0.3); osc('sine',900,700,0.3,0.2); }
+    else if (type === 'bark') { osc('sawtooth',180,80,0.15,0.4); setTimeout(function(){osc('sawtooth',160,70,0.15,0.35);},250); }
+    else if (type === 'roar') { osc('sawtooth',80,40,0.6,0.15); osc('sawtooth',100,50,0.6,0.12); osc('sawtooth',120,60,0.6,0.10); }
+    else if (type === 'quack') { osc('square',400,300,0.08,0.22); osc('square',300,380,0.16,0.15); }
+    else if (type === 'hiss') {
+      var buf = ctx.createBuffer(1, ctx.sampleRate * 0.4, ctx.sampleRate);
+      var d = buf.getChannelData(0);
+      for (var i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      var src = ctx.createBufferSource(), flt = ctx.createBiquadFilter(), g = ctx.createGain();
+      flt.type = 'bandpass'; flt.frequency.value = 4000; flt.Q.value = 0.5;
+      src.buffer = buf; src.connect(flt); flt.connect(g); g.connect(ctx.destination);
+      g.gain.setValueAtTime(0.2, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+      src.start(t);
+    }
+    else if (type === 'croak') { osc('square',120,200,0.05,0.3); osc('square',200,120,0.1,0.25); }
+    else if (type === 'grunt') { osc('sawtooth',100,55,0.35,0.35); }
+    else if (type === 'moo') { osc('sawtooth',180,140,0.3,0.3); osc('sawtooth',140,160,0.6,0.25); }
+    else if (type === 'squawk') { osc('square',800,400,0.1,0.2); osc('square',400,700,0.2,0.15); }
+    else if (type === 'squeak') { osc('sine',1200,800,0.15,0.2); }
+    else if (type === 'elephant') { osc('sawtooth',200,600,0.2,0.3); osc('sawtooth',600,300,0.5,0.25); }
+    else if (type === 'howl') { osc('sine',300,620,0.3,0.25); osc('sine',620,500,0.75,0.3); }
+    else if (type === 'screech') { osc('sawtooth',1000,600,0.15,0.15); }
+    else if (type === 'monkey') {
+      var freqs = [400,620,500,720,400];
+      for (var i = 0; i < freqs.length; i++) {
+        (function(f,delay){ setTimeout(function(){ osc('sine',f,null,0.08,0.2); }, delay); })(freqs[i], i*90);
+      }
+    }
+    else if (type === 'bubble') { osc('sine',200,400,0.08,0.15); osc('sine',280,480,0.08,0.12); osc('sine',360,560,0.08,0.10); }
+    else if (type === 'flutter') { for (var i=0;i<7;i++){ (function(d){ setTimeout(function(){ osc('sine',800+Math.random()*500,null,0.05,0.1); },d); })(i*40); } }
+    else if (type === 'low') { osc('sawtooth',150,75,0.42,0.25); }
+  });
 }
 
 function speak(name, lang) {
@@ -632,26 +660,26 @@ function renderLetter(idx, animal, x, y) {
 }
 
 function showIdx(idx, x, y) {
-  AC.resume();
   if (idx < 0 || idx >= LETTERS.length) return;
   var entry = LETTERS[idx];
   var key = entry.d;
+  var list = contentMode === 'objects' ? entry.objects : entry.animals;
   if (animalIdxMap[key] === undefined) animalIdxMap[key] = 0;
-  renderLetter(idx, entry.animals[animalIdxMap[key]], x, y);
+  renderLetter(idx, list[animalIdxMap[key] % list.length], x, y);
 }
 
 function showLetter(letter, x, y) {
-  AC.resume();
   var idx = -1;
   for (var i = 0; i < LETTERS.length; i++) { if (LETTERS[i].d === letter) { idx = i; break; } }
   if (idx < 0) return;
   var entry = LETTERS[idx];
   var key = entry.d;
+  var list = contentMode === 'objects' ? entry.objects : entry.animals;
   if (animalIdxMap[key] === undefined) animalIdxMap[key] = 0;
   if (idx === currentIdx && currentType === 'abc') {
-    animalIdxMap[key] = (animalIdxMap[key] + 1) % entry.animals.length;
+    animalIdxMap[key] = (animalIdxMap[key] + 1) % list.length;
   }
-  renderLetter(idx, entry.animals[animalIdxMap[key]], x, y);
+  renderLetter(idx, list[animalIdxMap[key] % list.length], x, y);
 }
 
 function renderCyrillic(idx, animal, x, y) {
@@ -681,30 +709,29 @@ function renderCyrillic(idx, animal, x, y) {
 }
 
 function showCyrIdx(idx, x, y) {
-  AC.resume();
   if (idx < 0 || idx >= CYRILLIC_LETTERS.length) return;
   var entry = CYRILLIC_LETTERS[idx];
   var key = entry.d;
+  var list = contentMode === 'objects' ? entry.objects : entry.animals;
   if (animalIdxMap[key] === undefined) animalIdxMap[key] = 0;
-  renderCyrillic(idx, entry.animals[animalIdxMap[key]], x, y);
+  renderCyrillic(idx, list[animalIdxMap[key] % list.length], x, y);
 }
 
 function showCyrLetter(letter, x, y) {
-  AC.resume();
   var idx = -1;
   for (var i = 0; i < CYRILLIC_LETTERS.length; i++) { if (CYRILLIC_LETTERS[i].d === letter) { idx = i; break; } }
   if (idx < 0) return;
   var entry = CYRILLIC_LETTERS[idx];
   var key = entry.d;
+  var list = contentMode === 'objects' ? entry.objects : entry.animals;
   if (animalIdxMap[key] === undefined) animalIdxMap[key] = 0;
   if (idx === currentIdx && currentType === 'cyr') {
-    animalIdxMap[key] = (animalIdxMap[key] + 1) % entry.animals.length;
+    animalIdxMap[key] = (animalIdxMap[key] + 1) % list.length;
   }
-  renderCyrillic(idx, entry.animals[animalIdxMap[key]], x, y);
+  renderCyrillic(idx, list[animalIdxMap[key] % list.length], x, y);
 }
 
 function showNumber(idx, x, y, lang) {
-  AC.resume();
   if (idx < 0 || idx >= NUMBERS.length) return;
   currentIdx = idx;
   currentType = 'num';
@@ -815,7 +842,7 @@ document.addEventListener('keyup', function(e) {
 });
 
 document.getElementById('app').addEventListener('click', function(e) {
-  if (e.target.closest('#hold-indicator') || e.target.id === 'fs-btn' || e.target.closest('#mode-wrap')) return;
+  if (e.target.closest('#hold-indicator') || e.target.id === 'fs-btn' || e.target.id === 'content-btn' || e.target.closest('#mode-wrap')) return;
   if (document.getElementById('parent-panel').classList.contains('visible')) return;
   goFullscreenOnce();
   if (currentType === 'cyr') {
@@ -827,7 +854,7 @@ document.getElementById('app').addEventListener('click', function(e) {
 });
 
 document.getElementById('app').addEventListener('touchstart', function(e) {
-  if (e.target.closest('#hold-indicator') || e.target.id === 'fs-btn' || e.target.closest('#mode-wrap')) return;
+  if (e.target.closest('#hold-indicator') || e.target.id === 'fs-btn' || e.target.id === 'content-btn' || e.target.closest('#mode-wrap')) return;
   if (document.getElementById('parent-panel').classList.contains('visible')) return;
   e.preventDefault();
   goFullscreenOnce();
@@ -889,6 +916,24 @@ function requestFS() {
 document.getElementById('fs-btn').addEventListener('click', requestFS);
 document.getElementById('mode-select').addEventListener('change', function() {
   switchMode(this.value);
+  updateContentBtn();
+});
+
+function updateContentBtn() {
+  var isCyr = document.getElementById('mode-select').value === 'cyr';
+  document.getElementById('content-icon').textContent = contentMode === 'animals' ? '🐾' : '🎁';
+  document.getElementById('content-label').textContent = contentMode === 'animals'
+    ? (isCyr ? 'Životinje' : 'Animals')
+    : (isCyr ? 'Predmeti'  : 'Objects');
+}
+
+document.getElementById('content-btn').addEventListener('click', function() {
+  contentMode = contentMode === 'animals' ? 'objects' : 'animals';
+  updateContentBtn();
+  saveState();
+  var sel = document.getElementById('mode-select').value;
+  if (sel === 'cyr') showCyrIdx(currentIdx, window.innerWidth/2, window.innerHeight/2);
+  else showIdx(currentIdx, window.innerWidth/2, window.innerHeight/2);
 });
 
 var lastTrail = 0;
@@ -912,6 +957,7 @@ document.addEventListener('mousemove', function(e) {
 
 if (window.speechSynthesis) window.speechSynthesis.onvoiceschanged = function(){};
 loadState();
+updateContentBtn();
 buildStrip();
 var _initMode = document.getElementById('mode-select').value;
 if (_initMode === 'cyr') showCyrIdx(0, window.innerWidth/2, window.innerHeight/2);
