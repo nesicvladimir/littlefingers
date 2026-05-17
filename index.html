@@ -12,6 +12,7 @@
   gtag('config', 'G-YG8YJE1DDL');
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✋</text></svg>">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:#0a0a1e;overflow:hidden;height:100vh;width:100vw;}
@@ -46,11 +47,17 @@ body{background:#0a0a1e;overflow:hidden;height:100vh;width:100vw;}
   gap:6px;max-width:80vw;margin-top:4px;
 }
 .dot-item{font-size:clamp(28px,5vw,48px);animation:pop 0.18s ease-out;}
+#top-bar{
+  position:absolute;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;padding:10px 14px;gap:8px;
+  pointer-events:none;
+}
+#top-right{display:flex;align-items:center;gap:8px;pointer-events:auto;}
 #counter{
-  position:absolute;top:14px;left:50%;transform:translateX(-50%);
-  z-index:100;display:flex;align-items:center;gap:8px;
+  flex:1;display:flex;align-items:center;justify-content:center;gap:8px;
   background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);
   border-radius:20px;padding:5px 14px;pointer-events:none;
+  max-width:140px;margin:0 auto;
 }
 #counter-num{
   font-size:16px;font-weight:700;color:#fff;font-family:'Fredoka One',cursive;
@@ -87,14 +94,12 @@ body{background:#0a0a1e;overflow:hidden;height:100vh;width:100vw;}
 #achievement-label{font-size:28px;font-weight:700;color:#fff;font-family:'Fredoka One',cursive;}
 #achievement-sub{font-size:15px;color:rgba(255,255,255,0.5);font-family:sans-serif;}
 #fs-btn{
-  position:absolute;top:14px;right:14px;z-index:100;
   background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);
   color:rgba(255,255,255,0.6);border-radius:8px;padding:7px 14px;
-  font-size:13px;cursor:pointer;font-family:sans-serif;transition:all 0.2s;
+  font-size:13px;cursor:pointer;font-family:sans-serif;transition:all 0.2s;white-space:nowrap;
 }
 #fs-btn:hover{background:rgba(255,255,255,0.18);color:#fff;}
 #content-btn{
-  position:absolute;top:10px;right:300px;z-index:100;
   background:linear-gradient(135deg,#7c3aed,#4f46e5);
   border:none;box-shadow:0 3px 12px rgba(99,60,220,0.5);
   color:#fff;border-radius:22px;padding:10px 18px;
@@ -113,7 +118,6 @@ body{background:#0a0a1e;overflow:hidden;height:100vh;width:100vw;}
   50%{box-shadow:0 3px 22px rgba(99,60,220,0.85),0 0 0 6px rgba(99,60,220,0.15);}
 }
 #mode-wrap{
-  position:absolute;top:10px;right:130px;z-index:100;
   display:inline-block;border-radius:22px;overflow:hidden;
   box-shadow:0 3px 12px rgba(255,100,0,0.5);
   transition:box-shadow 0.2s,transform 0.2s;
@@ -142,7 +146,7 @@ body{background:#0a0a1e;overflow:hidden;height:100vh;width:100vw;}
   50%{box-shadow:0 3px 22px rgba(255,140,0,0.85),0 0 0 6px rgba(255,120,0,0.15);}
 }
 #hold-indicator{
-  position:absolute;top:14px;left:14px;z-index:100;
+  flex-shrink:0;pointer-events:auto;
   width:42px;height:42px;border-radius:50%;
   background:rgba(255,255,255,0.05);border:2px solid rgba(255,255,255,0.1);
   overflow:hidden;cursor:pointer;
@@ -183,6 +187,12 @@ body{background:#0a0a1e;overflow:hidden;height:100vh;width:100vw;}
 .pp-divider{width:min(300px,80vw);height:1px;background:rgba(255,255,255,0.1);margin:2px 0;}
 .pp-label{font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;text-transform:uppercase;}
 #pp-about{font-size:13px;color:rgba(255,255,255,0.35);text-align:center;max-width:min(300px,80vw);line-height:1.5;margin:0 0 4px;font-style:italic;}
+@media(max-width:600px){
+  #content-label{display:none;}
+  #content-btn{padding:8px 12px;font-size:20px;}
+  #fs-btn{display:none;}
+  #mode-select{font-size:13px;padding:8px 30px 8px 14px;}
+}
 </style>
 </head>
 <body>
@@ -195,21 +205,25 @@ body{background:#0a0a1e;overflow:hidden;height:100vh;width:100vw;}
     <div id="dots-display"></div>
   </div>
   <div id="hint">Press any key or tap the screen</div>
-  <div id="counter">
-    <span id="counter-badge">&#x1F44B;</span>
-    <span id="counter-num">0</span>
-  </div>
-  <button id="content-btn"><span id="content-icon">&#x1F43E;</span><span id="content-label">Животиње</span></button>
-  <button id="fs-btn">&#x26F6; Fullscreen</button>
-  <div id="mode-wrap">
-    <select id="mode-select">
-      <option value="abc">Alphabet</option>
-      <option value="cyr">Ћирилица</option>
-    </select>
-  </div>
-  <div id="hold-indicator" title="Hold 2s or hold Escape to open settings">
-    <div id="hold-fill"></div>
-    <div id="hold-icon">&#x2699;&#xFE0F;</div>
+  <div id="top-bar">
+    <div id="hold-indicator" title="Hold 2s or hold Escape to open settings">
+      <div id="hold-fill"></div>
+      <div id="hold-icon">&#x2699;&#xFE0F;</div>
+    </div>
+    <div id="counter">
+      <span id="counter-badge">&#x1F44B;</span>
+      <span id="counter-num">0</span>
+    </div>
+    <div id="top-right">
+      <button id="content-btn"><span id="content-icon">&#x1F43E;</span><span id="content-label">Животиње</span></button>
+      <div id="mode-wrap">
+        <select id="mode-select">
+          <option value="abc">Alphabet</option>
+          <option value="cyr">Ћирилица</option>
+        </select>
+      </div>
+      <button id="fs-btn">&#x26F6; Fullscreen</button>
+    </div>
   </div>
   <div id="alpha-strip"></div>
   <div id="credit">Created by Vladimir Nešić @ Navira Tech</div>
@@ -347,8 +361,7 @@ var LETTERS = [
     {n:'QUAIL',     e:'&#x1F426;', c:'#fde68a', s:'squawk'},
     {n:'QUOKKA',    e:'&#x1F428;', c:'#d97706', s:'squeak'},
     {n:'QUETZAL',   e:'&#x1F99C;', c:'#4ade80', s:'squawk'},
-  ], objects:[{n:'QUEEN',      e:'&#x1F478;', c:'#e879f9', s:'flutter'},
-             {n:'QUILT',      e:'&#x1F9E3;', c:'#a78bfa', s:'squeak'}]},
+  ], objects:[{n:'QUEEN',      e:'&#x1F478;', c:'#e879f9', s:'flutter'}]},
   {d:'R', animals:[
     {n:'RABBIT',    e:'&#x1F430;', c:'#fca5a5', s:'squeak'},
     {n:'RACCOON',   e:'&#x1F99D;', c:'#94a3b8', s:'squeak'},
@@ -446,7 +459,7 @@ var CYRILLIC_LETTERS = [
                    {n:'ЛИСИЦА',        e:'&#x1F98A;', c:'#f97316', s:'bark'}],       objects:[{n:'ЛОПТА',       e:'&#x26BD;&#xFE0F;', c:'#4ade80', s:'grunt'},
                                                       {n:'ЛЕНТА',       e:'&#x1F380;', c:'#f472b6', s:'squeak'}]},
   {d:'Љ', animals:[{n:'ЉИЉАК',         e:'&#x1F987;', c:'#a78bfa', s:'squeak'}],    objects:[{n:'ЉУЉАШКА',     e:'&#x1F6DD;', c:'#93c5fd', s:'flutter'},
-                                                      {n:'ЉУБИЧИЦА',    e:'&#x1F4AE;', c:'#a78bfa', s:'flutter'}]},
+                                                      {n:'ЉУБИЧИЦА',    e:'&#x1F337;', c:'#a78bfa', s:'flutter'}]},
   {d:'М', animals:[{n:'МАЈМУН',        e:'&#x1F412;', c:'#d97706', s:'monkey'},
                    {n:'МИШ',           e:'&#x1F42D;', c:'#94a3b8', s:'squeak'}],     objects:[{n:'МЕСЕЦ',       e:'&#x1F319;', c:'#94a3b8', s:'squeak'},
                                                       {n:'МАГНЕТ',      e:'&#x1F9F2;', c:'#f87171', s:'squeak'}]},
@@ -470,9 +483,9 @@ var CYRILLIC_LETTERS = [
                                                       {n:'ТРАКТОР',     e:'&#x1F69C;', c:'#4ade80', s:'screech'}]},
   {d:'Ћ', animals:[{n:'ЋУРКА',         e:'&#x1F983;', c:'#d97706', s:'squawk'}],    objects:[{n:'ЋЕБЕ',        e:'&#x1F6CF;&#xFE0F;', c:'#a78bfa', s:'squeak'},
                                                       {n:'ЋУП',         e:'&#x1F3FA;', c:'#fb923c', s:'bubble'}]},
-  {d:'У', animals:[{n:'УГОР',          e:'&#x1F40D;', c:'#4ade80', s:'hiss'}],      objects:[{n:'УДИЦА',       e:'&#x1F3A3;', c:'#67e8f9', s:'bubble'}]},
+  {d:'У', animals:[{n:'УГОР',          e:'&#x1F41F;', c:'#67e8f9', s:'bubble'}],      objects:[{n:'УДИЦА',       e:'&#x1F3A3;', c:'#67e8f9', s:'bubble'}]},
   {d:'Ф', animals:[{n:'ФАЗАН',         e:'&#x1F985;', c:'#fbbf24', s:'squawk'},
-                   {n:'ФОКА',          e:'&#x1F9AD;', c:'#93c5fd', s:'bubble'}],     objects:[{n:'ФЕНЕР',       e:'&#x1F526;', c:'#fbbf24', s:'squeak'},
+                   {n:'ФОКА',          e:'&#x1F9AD;', c:'#93c5fd', s:'bubble'}],     objects:[{n:'ФОТОАПАРАТ',  e:'&#x1F4F7;', c:'#67e8f9', s:'squeak'},
                                                       {n:'ФЛАУТА',      e:'&#x1FA88;', c:'#c084fc', s:'flutter'}]},
   {d:'Х', animals:[{n:'ХРЧАК',         e:'&#x1F439;', c:'#fb923c', s:'squeak'},
                    {n:'ХИЈЕНА',        e:'&#x1F43A;', c:'#fde68a', s:'bark'}],       objects:[{n:'ХАМБУРГЕР',   e:'&#x1F354;', c:'#fb923c', s:'bubble'},
@@ -859,6 +872,7 @@ function goFullscreenOnce() {
 
 var escTimer = null;
 document.addEventListener('keydown', function(e) {
+  if (e.repeat) return;
   if (document.getElementById('parent-panel').classList.contains('visible')) return;
   if (e.code === 'Escape') {
     e.preventDefault();
@@ -900,7 +914,7 @@ document.addEventListener('keyup', function(e) {
 });
 
 document.getElementById('app').addEventListener('click', function(e) {
-  if (e.target.closest('#hold-indicator') || e.target.id === 'fs-btn' || e.target.id === 'content-btn' || e.target.closest('#mode-wrap')) return;
+  if (e.target.closest('#hold-indicator') || e.target.closest('#top-right') || e.target.closest('#mode-wrap')) return;
   if (document.getElementById('parent-panel').classList.contains('visible')) return;
   goFullscreenOnce();
   if (currentType === 'cyr') {
@@ -912,7 +926,7 @@ document.getElementById('app').addEventListener('click', function(e) {
 });
 
 document.getElementById('app').addEventListener('touchstart', function(e) {
-  if (e.target.closest('#hold-indicator') || e.target.id === 'fs-btn' || e.target.id === 'content-btn' || e.target.closest('#mode-wrap')) return;
+  if (e.target.closest('#hold-indicator') || e.target.closest('#top-right') || e.target.closest('#mode-wrap')) return;
   if (document.getElementById('parent-panel').classList.contains('visible')) return;
   e.preventDefault();
   goFullscreenOnce();
